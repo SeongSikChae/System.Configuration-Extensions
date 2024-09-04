@@ -59,7 +59,7 @@ jobs:
     - name: Upload to GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        files: ./System.Configuration.Extensions/bin/Release/System.Configuration.Extensions.${{ env.tag_name }}.nupkg
+        files: ./System.Configuration.Extensions/bin/Release/System.Configuration.Extensions.${{ steps.project_version.outputs.version }}.nupkg
         tag_name: ${{ env.tag_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
