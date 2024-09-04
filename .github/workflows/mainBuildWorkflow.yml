@@ -48,3 +48,18 @@ jobs:
         echo "tag_name=$TAG_NAME" >> $GITHUB_ENV
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Delete existing release
+      run: |
+        TAG_NAME=${{ env.tag_name }}
+        gh release delete $TAG_NAME -y || true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload to GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ./System.Configuration.Extensions/bin/Release/System.Configuration.Extensions.${{ env.tag_name }}.nupkg
+        tag_name: ${{ env.tag_name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
